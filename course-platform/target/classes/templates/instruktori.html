@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Instruktori</title>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f2f2f2; }
+        .badge { background:#eee; padding:2px 6px; margin-right:6px; border-radius:4px; display:inline-block;}
+        nav a { margin-right: 12px; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/instruktori">Instruktori</a>
+    <a href="/kursevi">Kursevi</a>
+</nav>
+
+<h2>Instruktori</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th><th>Ime</th><th>Prezime</th><th>Kursevi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="i : ${instruktori}">
+
+        <td th:text="${i.id}"></td>
+        <td th:text="${i.ime}"></td>
+        <td th:text="${i.prezime}"></td>
+        <td>
+        <span th:each="k : ${i.kursevi}"
+              th:text="${k.ime}" class="badge"></span>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

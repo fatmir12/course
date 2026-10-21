@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kursevi</title>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f2f2f2; }
+        nav a { margin-right: 12px; }
+        form { display:inline; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/instruktori">Instruktori</a>
+    <a href="/kursevi">Kursevi</a>
+</nav>
+<h2>Kursevi</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th><th>Naziv</th><th>Nivo obuke</th><th>Trajanje</th><th>Cijena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="k : ${kursevi}">
+        <td th:text="${k.id}"></td>
+        <td th:text="${k.naziv}"></td>
+        <td th:text="${k.nivoObuke}"></td>
+        <td th:text="${k.trajanjeDana}"></td>
+        <td th:text="${k.cijenaKursa}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
