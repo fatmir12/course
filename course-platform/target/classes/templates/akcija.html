@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <title>Akcija</title>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        nav a { margin-right: 12px; }
+        label, select, button { margin: 8px 8px 8px 0; }
+        .message { margin-top: 16px; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/instruktori">Instruktori</a>
+    <a href="/kursevi">Kursevi</a>
+    <a href="/akcija">Akcija</a>
+</nav>
+
+<h2>Dodjela kursa instruktoru</h2>
+
+<form action="/akcija" method="post">
+    <label for="instruktorId">Instruktor:</label>
+    <select id="instruktorId" name="instruktorId" required>
+        <option value="" disabled selected>Odaberite instruktora</option>
+        <option th:each="i : ${instruktori}"
+                th:value="${i.id}"
+                th:text="${i.ime + ' ' + i.prezime}"></option>
+    </select>
+
+    <label for="kursId">Kurs:</label>
+    <select id="kursId" name="kursId" required>
+        <option value="" disabled selected>Odaberite kurs</option>
+        <option th:each="k : ${kursevi}"
+                th:value="${k.id}"
+                th:text="${k.naziv}"></option>
+    </select>
+
+    <button type="submit">Dodijeli kurs</button>
+</form>
+
+<p class="message" th:if="${status == 'success'}">Kurs je uspješno dodijeljen instruktoru.</p>
+<p class="message" th:if="${status == 'duplicate'}">Ovaj instruktor već ima odabrani kurs.</p>
+<p class="message" th:if="${status == 'invalid'}">Instruktor ili kurs nisu pronađeni.</p>
+<p class="message" th:if="${status == 'limit'}">Instruktor može imati najviše pet kurseva.</p>
+</body>
+</html>

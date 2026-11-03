@@ -16,6 +16,7 @@
 <nav>
     <a href="/instruktori">Instruktori</a>
     <a href="/kursevi">Kursevi</a>
+    <a href="/akcija">Akcija</a>
 </nav>
 
 <h2>Instruktori</h2>
@@ -34,7 +35,7 @@
         <td th:text="${i.prezime}"></td>
         <td>
         <span th:each="k : ${i.kursevi}"
-              th:text="${k.ime}" class="badge"></span>
+              th:text="${k.naziv}" class="badge"></span>
         </td>
     </tr>
     </tbody>
