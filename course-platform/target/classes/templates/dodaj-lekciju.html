@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj lekciju</title>
+</head>
+<body>
+<h1>Dodavanje nove lekcije</h1>
+<a href="/lekcija">Nazad na lekcije</a>
+<hr>
+    <form th:action="@{/dodaj-lekciju}" method="post">
+        <label>Naslov:</label><br>
+        <input type="text" name="naslov" required>
+        <br><br>
+
+        <label>Sadržaj:</label><br>
+        <textarea name="sadržaj" required></textarea>
+        <br><br>
+
+        <label>Trajanje u  minutama:</label><br>
+        <input type="number" name="trajanjeMinuta" min="1" required>
+        <br><br>
+
+        <label>Odaberi kurs::</label><br>
+        <select name="kursId" required>
+            <option th:each="kurs : ${kursevi}" th:value="${kurs.id}" th:text="${kurs.naziv}"></option>
+        </select>
+
+        <br><br>
+        <button type="submit">Sačuvaj lekciju</button>
+    </form>
+</body>
+</html>

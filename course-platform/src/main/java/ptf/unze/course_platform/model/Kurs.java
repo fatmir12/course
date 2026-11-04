@@ -1,11 +1,33 @@
 package ptf.unze.course_platform.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name="kursevi")
 public class Kurs {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String naziv;
     private String nivoObuke;
     private int trajanjeDana;
     private int cijenaKursa;
+
+    @ManyToOne
+    @JoinColumn(name="instruktor_id")
+    @JsonIgnore
+    private  Instruktor instruktor;
+
+    @OneToMany(
+            mappedBy = "kurs",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Lekcija> lekcije = new ArrayList<>();
 
     public Kurs(){}
 
@@ -54,5 +76,35 @@ public class Kurs {
     }
     public void setCijenaKursa(int cijenaKursa) {
         this.cijenaKursa = cijenaKursa;
+    }
+
+    public Instruktor getInstruktor() {
+        return instruktor;
+    }
+
+    public List<Lekcija> getLekcije() {
+        return lekcije;
+    }
+
+    public void setInstruktor(Instruktor instruktor) {
+        this.instruktor = instruktor;
+    }
+
+    public void setLekcije(List<Lekcija> lekcije) {
+        this.lekcije = lekcije;
+    }
+
+    public void dodajLekciju(Lekcija lekcija) {
+        if(lekcija==null){
+            throw new IllegalArgumentException("Lekcija ne smije biti null");
+        }
+        if(lekcije.contains(lekcija)){
+            return;
+        }
+            }
+    public void uloniLekciju(Lekcija lekcija){
+        if(lekcije.remove(lekcija)){
+            lekcija.setKurs(null);
+        }
     }
 }

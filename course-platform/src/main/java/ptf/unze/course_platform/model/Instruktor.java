@@ -1,14 +1,26 @@
 package ptf.unze.course_platform.model;
 
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
+@Entity
+@Table(name="instruktor")
 public class Instruktor {
-    private long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String ime;
     private String prezime;
 
-    List<Kurs> kursevi=new ArrayList<>();
+    @OneToMany(
+            mappedBy = "instruktor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Kurs> kursevi=new ArrayList<>();
 
     public Instruktor(){}
 
@@ -44,8 +56,15 @@ public class Instruktor {
     }
 
     public void setKursevi(List<Kurs> kursevi) {
-        this.kursevi = kursevi;
+        this.kursevi.clear();
+
+        if (kursevi != null){
+            for(Kurs k:new ArrayList<>(kursevi)){
+                dodajKurs(k);
+            }
+        }
     }
+
 
     public boolean mozeDodatiKurs(){return kursevi.size()<5;}
 

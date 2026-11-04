@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <title>Lekcije</title>
+    <style>
+        body { font-family: sans-serif; margin: 24px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; }
+        th { background: #f2f2f2; }
+        nav a { margin-right: 12px; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="/instruktori">Instruktori</a>
+    <a href="/kursevi">Kursevi</a>
+    <a href="/akcija">Akcija</a>
+    <a href="/dodaj-lekciju">Dodaj lekciju</a>
+</nav>
+
+<h2>Lekcije</h2>
+
+<p th:if="${#lists.isEmpty(lekcije)}">Trenutno nema lekcija.</p>
+<table th:unless="${#lists.isEmpty(lekcije)}">
+    <thead>
+    <tr>
+        <th>Naslov</th><th>Sadržaj</th><th>Trajanje (minuta)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="lekcija : ${lekcije}">
+        <td th:text="${lekcija.naslov}"></td>
+        <td th:text="${lekcija.sadrzaj}"></td>
+        <td th:text="${lekcija.trajanjeMinuta}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
